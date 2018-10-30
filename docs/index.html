@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Software Visualization Research</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="./js/d3.4.2.6.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./keshif.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="./keshif.css"/ type="text/css">
+    <link rel="stylesheet" href="./font-awesome/css/font-awesome.min.css">
+   
+    <script type="text/javascript" src="./js/demo.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="./css/demo.css" type="text/css">
+
+    <script type="text/javascript">
+google.charts.setOnLoadCallback(function(){
+  browser = new kshf.Browser({
+    domID: "#demo_Browser",
+    barChartWidth: 90,
+    leftPanelLabelWidth: 200,
+    rightPanelLabelWidth: 200,
+    source: {
+      gdocId: '1bJsTTmzz_xqPdqRYv-uGR6PnbuyPJYktwz9Wu0d_m3U',
+      tables: ["Papers"]
+    },
+    summaries: [
+		// left
+		{ name: "Scope", catSplit: "; "},
+		{ name: "Paradigm", catSplit: "; "},
+		{ name: "Aspect", catSplit: "; ",  },
+		{ name: "Dimension", 
+			value: function(){
+					var d=[];
+					if(this.Twodimensional) d.push("2D");
+					if(this.Threedimensional) d.push("3D");
+					return d;
+			} 
+		},	
+		{ name: "VisualizationTechniqueCategory", catSplit: "; "},			
+		{ name: "EvaluationMethod", catSplit: "; "},	
+		// middle
+		{ name: "Artifact", collapsed: true, panel: "middle", catSplit: "; "},
+		{ name: "VisualizationTechnique", collapsed: true, panel: "middle", catSplit: "; "},
+		{ name: "ToolName", collapsed: true, panel: "middle", catSplit: "; "},
+		{ name: "Year", panel: "middle"},
+		// right
+		{ name: "Author", catSplit: "; ", panel: "right"},
+		{ name: "Source", value: "Source_Abbr", panel: "right"},		
+    ],
+    recordDisplay: {
+	  sortBy : [
+        { title: 'Year', inverse: true },
+      ],
+	  textSearch: "Title",
+	  detailsToggle : "one",
+      recordView : function() {
+        var str="";
+        // description
+        str+="<div class=\"iteminfo iteminfo_0\">";
+        str+=this.Title;
+        str+=" <a target=\"_blank\" href=\"http://www.google.com/search?q="+this.Title+"\">"+
+            "<i class='fa fa-external-link'></i></a>";
+        str+="</div>";
+		// details
+		str+="<span class=\"item_details\">";
+        str+="<div class=\"iteminfo iteminfo_1\"> <b>Scope</b>: " + this.Scope+"</div>";
+        str+="<div class=\"iteminfo iteminfo_1\"> <b>Paradigm</b>: " + this.Paradigm+"</div>";
+		str+="<div class=\"iteminfo iteminfo_1\"> <b>Aspect</b>: " + this.Aspect+"</div>";
+		str+="<div class=\"iteminfo iteminfo_1\"> <b>Artifact</b>: " + this.Artifact+"</div>";
+        if(this.Twodimensional && this.Threedimensional){
+			str+="<div class=\"iteminfo iteminfo_1\"> <b>Dimension</b>: 2D, 3D</div>";
+		}else if (this.Twodimensional){
+			str+="<div class=\"iteminfo iteminfo_1\"> <b>Dimension</b>: 2D</div>";
+		}else if(this.Threedimensional){
+			str+="<div class=\"iteminfo iteminfo_1\"> <b>Dimension</b>: 3D</div>";
+		}
+        str+="<div class=\"iteminfo iteminfo_1\"> <b>VisualizationTechniqueCategory</b>: " + this.VisualizationTechniqueCategory+"</div>";
+		str+="<div class=\"iteminfo iteminfo_1\"> <b>VisualizationTechnique</b>: " + this.VisualizationTechnique+"</div>";
+        str+="<div class=\"iteminfo iteminfo_1\"> <b>EvaluationMethod</b>: " + this.EvaluationMethod+"</div>";
+		str+="<div class=\"iteminfo iteminfo_1\"> <b>ToolName</b>: " + this.ToolName+"</div>";
+		str+="<div class=\"iteminfo iteminfo_1\"> <b>Year</b>: " + this.Year+"</div>";
+		str+="<div class=\"iteminfo iteminfo_1\"> <b>Author</b>: " + this.Author+"</div>";
+		str+="<div class=\"iteminfo iteminfo_1\"> <b>Source</b>: " + this.Source+"</div>";
+        str+="</span>";
+        return str;
+      }	  
+    }
+  });
+});
+      </script>
+<style id="kshfStyle">
+#demo_Browser{
+  height: calc(100vh - 90px);
+}
+.content .fa{
+  font-size: 0.8em;
+  color: gray;
+}
+</style>
+
+  </head>
+  <body>
+    <div class="contents">
+      <div id="demo_PageTitle">Software Visualization Research</div>
+      <div id="demo_Browser"></div>
+      </div>
+
+    <div id="demo_Infobox">
+      Software Visualization Research from 1991 to 2016</div>
+  </body>
+</html>
